@@ -24,8 +24,8 @@ void Looper::update(int cursorNum) {
 }
 
 void Looper::handleNoteOn(byte channel, byte pitch, byte velocity) {
-    if(this->parameters[0].value == channel && pitch <= 60) {
-        Module::send_cv(1, (int) round(4095. * pitch / 60));
+    if(this->parameters[0].value == channel && pitch <= NOTE_MAX) {
+        Module::send_cv(1, (int) round(4095. * pitch / NOTE_MAX));
         digitalWrite(this->pin_out, HIGH);
         if(this->parameters[2].value) {
             this->pitchs[tick % (6 * this->parameters[1].value)] = pitch;
@@ -35,7 +35,7 @@ void Looper::handleNoteOn(byte channel, byte pitch, byte velocity) {
 }
 
 void Looper::handleNoteOff(byte channel, byte pitch, byte velocity) {
-    if(this->parameters[0].value == channel && pitch <= 60) {
+    if(this->parameters[0].value == channel && pitch <= NOTE_MAX) {
         digitalWrite(this->pin_out, LOW);
         this->receive = false;
     }
@@ -43,7 +43,7 @@ void Looper::handleNoteOff(byte channel, byte pitch, byte velocity) {
 
 void Looper::del() {
     for (int i = 0; i < 6 * 16; i++) {
-        this->pitchs[i] = 61;
+        this->pitchs[i] = NOTE_MAX + 1;
     }
 }
 
@@ -54,10 +54,10 @@ void Looper::play() {
             pitchs[this_tick]<= this->parameters[7].value) {
         digitalWrite(this->pin_out, HIGH);
         pitch = pitchs[this_tick] + this->parameters[5].value;
-        if(60 < pitch) {
+        if(NOTE_MAX < pitch) {
             pitch = pitch - 12;
         }
-        Module::send_cv(1, (int) round(4095. * pitch / 60));
+        Module::send_cv(1, (int) round(4095. * pitch / NOTE_MAX));
         this->start_gate = tick;
     } else if((int) (tick - start_gate) == this->parameters[4].value) {
         digitalWrite(this->pin_out, LOW);

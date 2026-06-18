@@ -31,9 +31,9 @@ class Arp: public Module {
                             Parameter::BAR));
                 this->add(Parameter((char *) "KEY", 0, 11, 0,
                             Parameter::KEY));
-                this->add(Parameter((char *) "MIN", 0, 60, 0,
+                this->add(Parameter((char *) "MIN", 0, NOTE_MAX, 0,
                             Parameter::NOTE));
-                this->add(Parameter((char *) "MAX", 0, 60, 60,
+                this->add(Parameter((char *) "MAX", 0, NOTE_MAX, NOTE_MAX,
                             Parameter::NOTE));
                 this->add(Parameter((char *) "CHANGE", 0, 6, 0,
                             Parameter::BAR));

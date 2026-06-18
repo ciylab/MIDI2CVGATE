@@ -32,12 +32,12 @@ class Looper: public Module {
                             Parameter::BAR));
                 this->add(Parameter((char *) "KEY", 0, 11, 0,
                             Parameter::KEY));
-                this->add(Parameter((char *) "MIN", 0, 60, 0,
+                this->add(Parameter((char *) "MIN", 0, NOTE_MAX, 0,
                             Parameter::NOTE));
-                this->add(Parameter((char *) "MAX", 0, 60, 60,
+                this->add(Parameter((char *) "MAX", 0, NOTE_MAX, NOTE_MAX,
                             Parameter::NOTE));
                 for (int i = 0; i < 6 * 16; i++) {
-                    this->pitchs[i] = 61;
+                    this->pitchs[i] = NOTE_MAX + 1;
                 }
                 this->receive = false;
             }

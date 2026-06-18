@@ -32,7 +32,7 @@ int Arp::randomize() {
 
 void Arp::handleNoteOn(byte channel, byte pitch, byte velocity) {
     if(this->parameters[0].value == channel && 
-            pitch < this->parameters[6].value &&
+            pitch <= NOTE_MAX &&
             this->parameters[5].value <= pitch) {
         digitalWrite(this->pin_out, HIGH);
         if(this->parameters[1].value && this->size < 16) {
@@ -41,7 +41,7 @@ void Arp::handleNoteOn(byte channel, byte pitch, byte velocity) {
         }
         pitch = 
             (pitch + 60 + this->parameters[4].value + randomize()) % 60; 
-        Module::send_cv(0, (int) round(4095. * pitch / 60));
+        Module::send_cv(0, (int) round(4095. * pitch / NOTE_MAX));
         this->receive = true;
     }
 }
@@ -72,7 +72,7 @@ void Arp::play() {
                 pitch < this->parameters[6].value) {
             digitalWrite(this->pin_out, HIGH);
             pitch = (pitch + 60 + this->parameters[4].value + randomize()) % 60; 
-            Module::send_cv(0, (int) round(4095. * pitch / 60));
+            Module::send_cv(0, (int) round(4095. * pitch / NOTE_MAX));
             this->start_gate = tick;
         }
     } else if((int) (tick - start_gate) == this->parameters[3].value) {
