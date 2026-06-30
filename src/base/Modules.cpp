@@ -37,3 +37,9 @@ void Modules::setCurrentModule(int number) {
     this->moduleNum = -1;
     cursorNum = number % this->size;
 }
+
+void Modules::play() {
+    for(int i = 0; i < this->size; i++) {
+        this->modules[i]->play();
+    }
+}

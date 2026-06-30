@@ -34,6 +34,7 @@ class Modules {
         int getSize() {
             return this->size;
         }
+        /** Boucle qui joue tous les modules sur les ticks d'horloge.*/
+        void play();
 };
-
 #endif
