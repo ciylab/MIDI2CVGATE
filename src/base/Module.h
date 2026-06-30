@@ -9,7 +9,7 @@
 #include <SPI.h>
 
 #define SS 10
-#define NOTE_MAX 56
+#define NOTE_MAX 60
 
 /**
  * Sortie HIGH/LOW du trigger/gate numéro 1 sur le panel.
